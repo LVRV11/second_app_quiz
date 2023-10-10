@@ -12,6 +12,8 @@ void main() {
                 Color.fromARGB(255, 78, 13, 151),
                 Color.fromRGBO(137, 83, 198, 1),
               ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
             ),
           ),
           child: const StartScreen(),
