@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:second_app_quiz/questions_screen.dart';
 import 'package:second_app_quiz/start_screen.dart';
-import 'package:second_app_quiz/data/questions.dart';
-import 'package:second_app_quiz/results_screen.dart';
+import 'package:second_app_quiz/questions_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -14,46 +12,20 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  List<String> _selectedAnswers = [];
-  var _activeScreen = 'start-screen';
+  var activeScreen = 'start-screen';
 
-  void _switchScreen() {
+  void switchScreen() {
     setState(() {
-      _activeScreen = 'questions-screen';
-    });
-  }
-
-  void _chooseAnswer(String answer) {
-    _selectedAnswers.add(answer);
-
-    if (_selectedAnswers.length == questions.length) {
-      setState(() {
-        _activeScreen = 'results-screen';
-      });
-    }
-  }
-
-  void restartQuiz() {
-    setState(() {
-      _activeScreen = 'questions-screen';
+      activeScreen = 'questions-screen';
     });
   }
 
   @override
   Widget build(context) {
-    Widget screenWidget = StartScreen(_switchScreen);
+    Widget screenWidget = StartScreen(switchScreen);
 
-    if (_activeScreen == 'questions-screen') {
-      screenWidget = QuestionsScreen(
-        onSelectAnswer: _chooseAnswer,
-      );
-    }
-
-    if (_activeScreen == 'results-screen') {
-      screenWidget = ResultsScreen(
-        chosenAnswers: _selectedAnswers,
-        onRestart: restartQuiz,
-      );
+    if (activeScreen == 'questions-screen') {
+      screenWidget = const QuestionsScreen();
     }
 
     return MaterialApp(
